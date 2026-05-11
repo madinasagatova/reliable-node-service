@@ -2,6 +2,9 @@ const express = require("express");
 const pinoHttp = require("pino-http");
 const logger = require("./logger");
 const { ping } = require("./db");
+const createIncidentsRouter = require("./routes/incidents");
+const { notFound, errorHandler } = require("./middleware/errors");
+
 
 
 function createApp(pool) {
@@ -42,6 +45,11 @@ function createApp(pool) {
     });
   }
 });
+app.use("/incidents", createIncidentsRouter(pool));
+
+app.use(notFound);
+app.use(errorHandler);
+
 
 
   return app;
