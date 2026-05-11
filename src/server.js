@@ -1,8 +1,10 @@
 const createApp = require("./app");
+const config = require("./config");
+const logger = require("./logger");
 
-const port = process.env.PORT || 3000;
 const app = createApp();
 
-app.listen(port, () => {
-  console.log(`reliable-node-service running on port ${port}`);
+app.listen(config.port, () => {
+  logger.info({ port: config.port }, "reliable-node-service started");
 });
+
